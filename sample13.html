@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="array-rendering" class="demo">
+      <li v-for="item in items" :key="item.message">{{item.message}}</li>
+    </ul>
+  </body>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          items: [{ message: "Foo" }, { message: "Bar" }, { message: "Uver" }],
+        };
+      },
+    }).mount("#array-rendering");
+  </script>
+</html>

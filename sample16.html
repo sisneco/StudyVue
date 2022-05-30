@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul id="v-for-object" class="demo">
+      <li v-for="(value,name) in myObject">{{name}}:{{value}}</li>
+    </ul>
+  </body>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          myObject: {
+            title: "How to do lists in Vue",
+            author: "Jane Doe",
+            publishedAt: "2020-03-22",
+          },
+        };
+      },
+    }).mount("#v-for-object");
+  </script>
+</html>
