@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="counter">Counter:{{counter}}</div>
+
+    <script>
+      const Counter = {
+        data() {
+          return {
+            counter: 1,
+          };
+        },
+        created() {
+          console.log("count is " + this.counter);
+        },
+      };
+
+      Vue.createApp(Counter).mount("#counter");
+    </script>
+  </body>
+</html>
