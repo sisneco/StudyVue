@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div :class="classObject"></div>
+  </body>
+  <script>
+    //const app = {data()return{}}を定義する
+    const app = {
+      data() {
+        return {
+          classObject: {
+            active: true,
+            "text-danger": false,
+          },
+        };
+      },
+      computed: {
+        classObject() {
+          return {
+            active: this.isActive && !this.error,
+            "text-danger": this.error && this.error.type === "fatal",
+          };
+        },
+      },
+    };
+  </script>
+</html>
