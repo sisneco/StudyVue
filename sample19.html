@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="event-with-method" class="demo">
+      <button @click="great">Great</button>
+    </div>
+  </body>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          name: "Vue.js",
+        };
+      },
+      methods: {
+        great(event) {
+          alert("Hello" + this.name + "!");
+
+          if (event) {
+            alert(event.target.tagName);
+          }
+        },
+      },
+    }).mount("#event-with-method");
+  </script>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="inline-handler">
+      <button @click="say('hi')">Say hi</button>
+      <button @click="say('what')">Say what</button>
+    </div>
+  </body>
+  <script>
+    Vue.createApp({
+      methods: {
+        say(message) {
+          alert(message);
+        },
+      },
+    }).mount("#inline-handler");
+  </script>
+</html>
