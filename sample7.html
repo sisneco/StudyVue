@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="list-rendering">
+      <ol>
+        <li v-for="todo in todos">{{todo.text}}</li>
+      </ol>
+    </div>
+  </body>
+  <script>
+    const ListRendering = {
+      data() {
+        return {
+          todos: [
+            { text: "Learn JavaScript" },
+            { text: "Learn Vue" },
+            { text: "Build something awesome" },
+            { text: "Test" },
+          ],
+        };
+      },
+    };
+
+    Vue.createApp(ListRendering).mount("#list-rendering");
+  </script>
+</html>
