@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="v-model-checkbox" class="demo">
+      <input type="checkbox" id="checkbox" v-model="checked" />
+      <label for="checkbox">{{ checked }}</label>
+    </div>
+  </body>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          checked: false,
+        };
+      },
+    }).mount("#v-model-checkbox");
+  </script>
+</html>
