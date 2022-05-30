@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="components-app" class="demo">
+      <ol>
+        <todo-item
+          v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+        </todo-item>
+      </ol>
+    </div>
+  </body>
+
+  <script>
+    const ComponentsApp = {
+      data() {
+        return {
+          groceryList: [
+            { id: 0, text: "Vegetables" },
+            { id: 1, text: "Cheese" },
+            { id: 2, text: "Whatever else humans are supposed to eat" },
+          ],
+        };
+      },
+    };
+
+    const app = Vue.createApp(ComponentsApp);
+
+    app.component("todo-item", {
+      props: ["todo"],
+      template: "<li>{{todo.text}}</li>",
+    });
+
+    app.mount("#components-app");
+  </script>
+</html>
