@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="example1" class="demo">
+      <p>Using mustaches:{{rawHtml}}</p>
+      <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    </div>
+  </body>
+  <script>
+    const RenderHtmlApp = {
+      data() {
+        return {
+          rawHtml: '<span style="color:red">This is should be red</span>',
+        };
+      },
+    };
+
+    Vue.createApp(RenderHtmlApp).mount("#example1");
+  </script>
+</html>
