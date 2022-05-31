@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="blog-posts-events-demo" class="demo">
+      <div :style="{ fontSize: postFontSize + 'em'}">
+        <blog-post
+          v-for="post in posts"
+          :key="post.id"
+          :title="post.title"
+          @enlarge-text="postFontSize += 0.1"
+        ></blog-post>
+      </div>
+    </div>
+  </body>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          posts: [
+            { id: 1, title: "My journey with Vue" },
+            { id: 2, title: "Blogging with Vue" },
+            { id: 3, title: "Why Vue is so fun" },
+          ],
+          postFontSize: 1,
+        };
+      },
+    });
+
+    //フォントサイズをそれぞれ独立させたいときは、postsにfontsizeを独立させる？？
+    //子供から親に渡す時は$emit,親から子供はprops
+    app.component("blog-post", {
+      props: ["title"],
+      template: `<div class="blog-post">
+        <h4>{{title}}</h4>
+        <button
+        @click="$emit('enlargeText')">
+          Enlarge text
+        </button>
+      </div>
+        `,
+    });
+
+    app.mount("#blog-posts-events-demo");
+  </script>
+</html>
