@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="v-model-select-dynamic" class="demo">
+      <select v-model="selected">
+        <option v-for="option in options" v-bind:value="option.value">
+          {{option.text}}
+        </option>
+      </select>
+      <span>Selected: {{ selected }}</span>
+    </div>
+  </body>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          selected: "A",
+          options: [
+            { text: "one", value: "A" },
+            { text: "Two", value: "B" },
+            { text: "Three", value: "C" },
+          ],
+        };
+      },
+    }).mount("#v-model-select-dynamic");
+  </script>
+</html>
