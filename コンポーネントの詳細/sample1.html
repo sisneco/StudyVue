@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="v-model-example" class="demo">
+      <p>First Name:{{ firstName }}</p>
+      <p>Last Name:{{ lastName }}</p>
+      <user-name
+        v-model:first-name="firstName"
+        v-model:last-name="lastName"
+      ></user-name>
+    </div>
+  </body>
+  <script>
+    const UserName = {
+      props: {
+        firstName: String,
+        lastName: String,
+      },
+      template: `
+        <input type="text"
+        :value="firstName"
+        @input="$emit('update:firstName',$event.target.value)">
+
+        <input type="text"
+        :value="lastName"
+        @input="$emit('update:lastName',$event.target.value)">
+        `,
+    };
+
+    const HelloVueApp = {
+      components: {
+        UserName,
+      },
+      data() {
+        return {
+          firstName: "John",
+          lastName: "Doe",
+        };
+      },
+    };
+
+    Vue.createApp(HelloVueApp).mount("#v-model-example");
+  </script>
+</html>
