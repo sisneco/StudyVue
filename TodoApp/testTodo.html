@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script src="https://unpkg.com/vue@next"></script>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>TodoApp</title>
+  </head>
+  <body>
+    <div id="todo-main">
+      <div id="header">
+        <h2>Todo App!</h2>
+        <p>完了数：{{compId }}</p>
+        <p>タスク数：{{ todos.length }}</p>
+      </div>
+      <form @submit.prevent="addnewTodo">
+        <input v-model="newTodoText" id="new-todo" placeholder="タスクを追加" />
+        <button>追加</button>
+      </form>
+      <ul>
+        <todo-item
+          v-for="(todo,index) in todos"
+          class="todoitem"
+          :key="todo.id"
+          :title="todo.title"
+          :comp="todo.compText"
+          :class="{completion:todo.isActive}"
+          @remove="completionTodo(todos,index)"
+        ></todo-item>
+      </ul>
+    </div>
+  </body>
+  <script>
+    //conponent
+    const todoitem = {
+      template: `
+        <li>
+          {{ title }}
+          <button @click="$emit('remove')">{{ comp }}</button>
+          </li>
+          `,
+      props: ["title", "comp"],
+      emits: ["remove"],
+    };
+
+    //todo-mainApp
+    const TodoApp = Vue.createApp({
+      components: {
+        "todo-item": todoitem,
+      },
+      data() {
+        return {
+          newTodoText: "",
+          todos: [
+            {
+              id: 1,
+              title: "明日マヨネーズを買う",
+              compText: "完了",
+              isActive: false,
+            },
+          ],
+          nextId: 1,
+          compId: 0,
+        };
+      },
+      methods: {
+        //タスクを追加
+        addnewTodo() {
+          this.todos.push({
+            id: this.nextId++,
+            title: this.newTodoText,
+            isActive: false,
+          });
+          this.newTodoText = "";
+        },
+        //タスクを完了or元に戻すボタン
+        completionTodo(todos, index) {
+          todo = todos[index];
+          this.todo.isActive = !this.todo.isActive;
+
+          //完了ボタンと元に戻すボタン
+          if (this.todo.isActive) {
+            this.todo.compText = "元に戻す";
+            this.compId--;
+          } else {
+            this.todo.compText = "完了";
+            this.compId++;
+          }
+        },
+      },
+    });
+    TodoApp.mount("#todo-main");
+  </script>
+</html>
