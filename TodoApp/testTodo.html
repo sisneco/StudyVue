@@ -76,15 +76,17 @@
         //タスクを完了or元に戻すボタン
         completionTodo(todos, index) {
           todo = todos[index];
-          this.todo.isActive = !this.todo.isActive;
+          todos[index].isActive;
+          //反転
+          todo.isActive = !todo.isActive;
 
           //完了ボタンと元に戻すボタン
-          if (this.todo.isActive) {
-            this.todo.compText = "元に戻す";
-            this.compId--;
-          } else {
-            this.todo.compText = "完了";
+          if (todo.isActive) {
+            todo.compText = "元に戻す";
             this.compId++;
+          } else {
+            todo.compText = "完了";
+            this.compId--;
           }
         },
       },
