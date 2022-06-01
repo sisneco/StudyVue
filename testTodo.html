@@ -9,14 +9,14 @@
     <div id="header"><h2>{{headerTitle}}</h2></div>
     <div id="todo-main">
       <form @submit.prevent="addnewTodo">
-        <input v-model="newTodoText" id="new-todo" placeholder="Me" />
+        <input v-model="newTodoText" id="new-todo" placeholder="タスクを追加" />
         <button>追加</button>
         <ul>
           <todo-item
             v-for="(todo,index) in todos"
             :key="todo.id"
             :title="todo.title"
-            @remove="todos.splice(index,1)"
+            @remove="removeTodo"
           ></todo-item>
         </ul>
       </form>
@@ -57,7 +57,9 @@
           this.allId++;
           this.newTodoText = "";
         },
-        deleteTodo() {},
+      },
+      removeTodo() {
+        console.log("hoge");
       },
     });
     TodoApp.mount("#todo-main");
