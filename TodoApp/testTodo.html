@@ -35,7 +35,7 @@
     const todoitem = {
       template: `
         <li>
-          {{ title }}
+          <span>{{ title }}</span>
           <button @click="$emit('remove')">{{ comp }}</button>
           </li>
           `,
@@ -51,17 +51,40 @@
       data() {
         return {
           newTodoText: "",
-          todos: [
-            {
-              id: 1,
-              title: "明日マヨネーズを買う",
-              compText: "完了",
-              isActive: false,
-            },
-          ],
-          nextId: 1,
+          todos: [],
+          nextId: 0,
           compId: 0,
         };
+      },
+      //インスタンス生成時に実行される
+      created() {
+        //ローカルストレージからtodos配列を取得
+        this.todos = JSON.parse(localStorage.getItem("todos"));
+        //ない時は配列を宣言
+        if (this.todos == null) {
+          this.todos = new Array();
+        }
+        //compId(完了数)も同じく
+        this.compId = localStorage.getItem("compId");
+        if (this.compId == null) {
+          this.compId = 0;
+        }
+        //nextIdを初期化（配列の長さ+1）
+        this.nextId = this.todos.length + 1;
+      },
+      //ウォッチャー(更新されると実行という解釈？)
+      watch: {
+        todos: {
+          handler: function () {
+            jsonTodos = JSON.stringify(this.todos, undefined, 1);
+            localStorage.setItem("todos", jsonTodos);
+          },
+          deep: true,
+        },
+
+        compId(newId, oldId) {
+          localStorage.setItem("compId", newId);
+        },
       },
       methods: {
         //タスクを追加
@@ -70,6 +93,7 @@
             id: this.nextId++,
             title: this.newTodoText,
             isActive: false,
+            compText: "完了",
           });
           this.newTodoText = "";
         },
