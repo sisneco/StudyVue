@@ -10,43 +10,63 @@
     <div id="todo-main">
       <div id="header">
         <h2>Todo App!</h2>
+        <p>総タスク数：{{ todos.length }}</p>
+        <p>作業タスク数：{{ todos.length - compId }}</p>
         <p>完了数：{{compId }}</p>
-        <p>タスク数：{{ todos.length }}</p>
       </div>
-      <form @submit.prevent="addnewTodo">
+      <todo-search
+        @select-all="status = 0"
+        @select-comp="status = 1"
+        @select-task="status = 2"
+      ></todo-search>
+      <form @submit.prevent="addnewTodo" id="add-form">
         <input v-model="newTodoText" id="new-todo" placeholder="タスクを追加" />
-        <button>追加</button>
+        <button id="add-button">追加</button>
       </form>
       <ul>
         <todo-item
-          v-for="(todo,index) in todos"
+          v-for="(todo,index) in filterTodos"
           class="todoitem"
           :key="todo.id"
           :title="todo.title"
           :comp="todo.compText"
           :class="{completion:todo.isActive}"
-          @remove="completionTodo(todos,index)"
+          @comp="completionTodo(todos,index)"
+          @remove="removeTodo(todos,index)"
         ></todo-item>
       </ul>
     </div>
   </body>
   <script>
-    //conponent
+    //component todoitem
     const todoitem = {
+      props: ["title", "comp"],
+      emits: ["comp", "remove"],
       template: `
         <li>
           <span>{{ title }}</span>
-          <button @click="$emit('remove')">{{ comp }}</button>
-          </li>
+          <button @click="$emit('comp')">{{ comp }}</button>
+          <button @click="$emit('remove')">削除</button></li>
           `,
-      props: ["title", "comp"],
-      emits: ["remove"],
+    };
+
+    //component todosearch
+    const todosearch = {
+      props: ["todos"],
+      template: `
+      <div id="search">
+        <button @click="$emit('select-all')">すべて</button>
+        <button @click="$emit('select-comp')">完了</button>
+        <button @click="$emit('select-task')">作業中</button>
+      </div>
+        `,
     };
 
     //todo-mainApp
     const TodoApp = Vue.createApp({
       components: {
         "todo-item": todoitem,
+        "todo-search": todosearch,
       },
       data() {
         return {
@@ -54,6 +74,7 @@
           todos: [],
           nextId: 0,
           compId: 0,
+          status: 0, // 0== all, 1== 完了 , 2== 未完了
         };
       },
       //インスタンス生成時に実行される
@@ -81,7 +102,6 @@
           },
           deep: true,
         },
-
         compId(newId, oldId) {
           localStorage.setItem("compId", newId);
         },
@@ -97,6 +117,14 @@
           });
           this.newTodoText = "";
         },
+        //タスクを削除
+        removeTodo(todos, index) {
+          if (todos[index].isActive) {
+            this.compId--;
+          }
+          todos.splice(index, 1);
+          this.nextId--;
+        },
         //タスクを完了or元に戻すボタン
         completionTodo(todos, index) {
           todo = todos[index];
@@ -111,6 +139,23 @@
           } else {
             todo.compText = "完了";
             this.compId--;
+          }
+        },
+      },
+      computed: {
+        filterTodos() {
+          if (this.status === 0) {
+            return this.todos.filter(function (val) {
+              return val;
+            });
+          } else if (this.status === 1) {
+            return this.todos.filter(function (val) {
+              return val.isActive;
+            });
+          } else if (this.status === 2) {
+            return this.todos.filter(function (val) {
+              return !val.isActive;
+            });
           }
         },
       },

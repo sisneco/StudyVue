@@ -1,10 +1,19 @@
+#new-todo {
+  height: 25px;
+}
+
+#add-form {
+  margin-top: 20px;
+}
+
 /* ヘッダー部分 */
 #header p {
   font-size: 1.25em;
   font-weight: bold;
   color: white;
   margin: auto;
-  background-color: aqua;
+  padding-left: 0.5em;
+  background-color: orange;
 }
 
 #header h2 {
@@ -20,8 +29,9 @@ div#header {
 
 /* todo-main部分 */
 #todo-main li {
-  font-size: 1em;
-  margin-top: 0.3em;
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-top: 1em;
 }
 
 #todo-main span {
@@ -34,6 +44,34 @@ div#header {
   text-decoration: line-through;
 }
 
+button {
+  cursor: pointer;
+  background-color: aqua;
+  border-radius: 100vh;
+  margin: 0.1em 0.2em;
+  font-weight: 700;
+  padding: 0.15em 0.4em;
+  color: white;
+  border: 1px solid black;
+  font-size: 1.2em;
+}
+
+button:hover {
+  opacity: 0.5;
+}
+
+#search button {
+  background-color: chartreuse;
+  padding: 0.3em 0.8em;
+}
+
+#add-button {
+  background-color: white;
+  color: black;
+  padding: 0.2em 2em;
+}
+
+/* 簡単なレスポンシブデザイン */
 @media (min-width: 1000px) {
   body {
     width: 1000px;
